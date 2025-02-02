@@ -1,0 +1,8 @@
+name: RCVaults
+version: '0.1'
+main: xyz.reportcards.vaults.RCVaults
+api-version: '1.20'
+authors: [ ReportCards ]
+description: Very easy-to-use vault solution
+website: https://github.com/ReportCardsMC/RCVaults
+depend: [NBTAPI]
