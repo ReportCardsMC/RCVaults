@@ -27,12 +27,19 @@ class VaultMainMenu(
                 vaultSlots[i] = false // False because the vault hasn't opened yet
             }
         }
-        val rows = 2 + (vaultSlots.size/9)
+        var rows = 3 + (vaultSlots.size/9)
+        // Remove 1 from rows if the vault size is exactly modulo 9
+        if (vaultSlots.size % 9 == 0) {
+            rows--
+        }
         val gui = ChestGui(rows, "Player Vaults")
         val topPane = StaticPane(0, 0, 9, 1, Pane.Priority.HIGHEST)
+        val bottomPane = StaticPane(0, rows-1, 9, 1, Pane.Priority.HIGHEST)
         topPane.fillWith(ItemStack(Material.BLACK_STAINED_GLASS_PANE).invisibleName())
+        bottomPane.fillWith(ItemStack(Material.BLACK_STAINED_GLASS_PANE).invisibleName())
         gui.addPane(topPane)
-        val vaultPane = StaticPane(0, 1, 9, rows-1, Pane.Priority.HIGHEST)
+        gui.addPane(bottomPane)
+        val vaultPane = StaticPane(0, 1, 9, rows-2, Pane.Priority.HIGHEST)
 
         for ((i, slot) in vaultSlots.keys.sortedBy { it }.withIndex()) {
             val isCreated = vaultSlots[slot] ?: false
