@@ -7,7 +7,6 @@ import xyz.reportcards.vaults.utils.CompressionUtils
 private val GSON = GsonBuilder().create()
 class PlayerVault(
     val id: Int,
-    val name: String,
     val contents: List<VaultItem>,
     val size: Int = 9
 ) {

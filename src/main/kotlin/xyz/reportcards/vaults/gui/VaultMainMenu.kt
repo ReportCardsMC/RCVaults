@@ -4,9 +4,7 @@ import com.github.stefvanschie.inventoryframework.gui.GuiItem
 import com.github.stefvanschie.inventoryframework.gui.type.ChestGui
 import com.github.stefvanschie.inventoryframework.pane.Pane
 import com.github.stefvanschie.inventoryframework.pane.StaticPane
-import org.bukkit.Bukkit
 import org.bukkit.Material
-import org.bukkit.conversations.ConversationFactory
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 import xyz.reportcards.vaults.RCVaults
@@ -60,7 +58,6 @@ class VaultMainMenu(
                 player.sendMessage("Opening vault $slot")
                 val playerVault = VaultService.instance.getVault(player, slot) ?: PlayerVault(
                     slot,
-                    "Vault $slot",
                     mutableListOf(),
                     0
                 )

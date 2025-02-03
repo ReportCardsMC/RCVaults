@@ -6,7 +6,6 @@ import org.bukkit.conversations.ConversationFactory
 import org.bukkit.plugin.ServicePriority
 import org.bukkit.plugin.java.JavaPlugin
 import xyz.reportcards.vaults.commands.VaultCommand
-import xyz.reportcards.vaults.commands.VaultTestCommand
 import xyz.reportcards.vaults.models.PlayerData
 import xyz.reportcards.vaults.models.PlayerVault
 import xyz.reportcards.vaults.utils.datastore.implementations.CompressedFileDatastore
@@ -32,7 +31,6 @@ class RCVaults : JavaPlugin() {
         commandManager = PaperCommandManager(this)
         conversationFactory = ConversationFactory(this)
         // Plugin startup logic
-        commandManager.registerCommand(VaultTestCommand())
         commandManager.registerCommand(VaultCommand())
 
         Bukkit.getServicesManager().register(VaultService::class.java, VaultService(
@@ -43,5 +41,9 @@ class RCVaults : JavaPlugin() {
 
     override fun onDisable() {
         // Plugin shutdown logic
+        for (player in Bukkit.getOnlinePlayers()) {
+            player.closeInventory()
+        }
+        logger.info("Disabled plugin")
     }
 }

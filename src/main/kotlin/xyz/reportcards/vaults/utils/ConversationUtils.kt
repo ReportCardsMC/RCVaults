@@ -9,6 +9,7 @@ import org.bukkit.conversations.RegexPrompt
 import org.bukkit.conversations.StringPrompt
 import org.bukkit.entity.Player
 import xyz.reportcards.vaults.VaultService
+import xyz.reportcards.vaults.gui.VaultMainMenu
 import xyz.reportcards.vaults.models.PlayerData
 import xyz.reportcards.vaults.models.VaultData
 
@@ -34,6 +35,7 @@ class ConversationUtils {
             playerData.vaults.add(newVault)
             VaultService.instance.setPlayerData(player, playerData)
             player.sendMessage(!"<green>Vault name changed to <reset>${newVault.name}")
+            VaultMainMenu(player, playerData).get().show(player)
             return Prompt.END_OF_CONVERSATION
         }
 

@@ -25,7 +25,9 @@ class VaultMenu(
 
     fun get(): CustomChestGui {
         var loaded = false
-        val gui = CustomChestGui(6, TextHolder.deserialize(vault.name))
+        val playerData = VaultService.instance.getPlayerData(player) ?: PlayerData(player.uniqueId, mutableListOf(), 0)
+        val vaultData = playerData.vaults.find { it.id == vault.id } ?: VaultData(vault.id, "Vault ${vault.id}", 0)
+        val gui = CustomChestGui(6, TextHolder.deserialize(vaultData.name))
         val contentPane = StaticPane(0,0,9,5)
         val bottomPane = StaticPane(0,5,9,1)
         bottomPane.addItem(GuiItem(ItemStack(Material.BARRIER).withMetaData {
@@ -79,11 +81,13 @@ class VaultMenu(
         //println("Vault items: ${vaultItems.size}")
         //println("Gui items: ${guiItems.contents.size}")
 
-        VaultService.instance.saveVault(player, PlayerVault(vault.id, "Vault ${vault.id}", vaultItems, width * height))
-        // Add vault to player data
         val playerData = VaultService.instance.getPlayerData(player) ?: PlayerData(player.uniqueId, mutableListOf(), 0)
+        val vaultData = playerData.vaults.find { it.id == vault.id } ?: VaultData(vault.id, "Vault ${vault.id}", 0)
+        val newVault = PlayerVault(vault.id, vaultItems, width * height)
+        VaultService.instance.saveVault(player, newVault)
+        // Add vault to player data
         playerData.vaults.removeIf { it.id == vault.id }
-        playerData.vaults.add(VaultData(vault.id, vault.name, itemCount))
+        playerData.vaults.add(VaultData(newVault.id, vaultData.name, itemCount))
         VaultService.instance.setPlayerData(player, playerData)
 
         player.sendMessage("Saved vault ${vault.id}")
