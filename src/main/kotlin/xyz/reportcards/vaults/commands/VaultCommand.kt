@@ -7,6 +7,7 @@ import co.aikar.commands.annotation.Default
 import co.aikar.commands.annotation.Optional
 import org.bukkit.entity.Player
 import xyz.reportcards.vaults.VaultService
+import xyz.reportcards.vaults.gui.VaultMainMenu
 import xyz.reportcards.vaults.models.PlayerData
 import xyz.reportcards.vaults.models.PlayerVault
 import xyz.reportcards.vaults.models.VaultData
@@ -27,6 +28,10 @@ class VaultCommand: BaseCommand() {
             } else {
                 sender.sendMessage("Vault with id $vault does not exist")
             }
+        } else {
+            val playerData = VaultService.instance.getPlayerData(sender) ?: PlayerData(sender.uniqueId, mutableListOf(), 0)
+            val gui = VaultMainMenu(sender, playerData).get()
+            gui.show(sender)
         }
     }
 
@@ -34,13 +39,13 @@ class VaultCommand: BaseCommand() {
     @CommandAlias("save")
     fun onSave(sender: Player, vault: Int) {
         sender.sendMessage("Saving vault $vault")
-        val playerData = VaultService.instance.getPlayerData(sender) ?: PlayerData(sender.uniqueId, mutableListOf(), 9)
+        val playerData = VaultService.instance.getPlayerData(sender) ?: PlayerData(sender.uniqueId, mutableListOf(), 0)
         if (vault > playerData.extraVaults) {
             sender.sendMessage("You do not have that many vaults")
             return
         }
 
-        val vaultData = VaultData(vault, "Vault $vault")
+        val vaultData = VaultData(vault, "Vault $vault", sender.inventory.contents.sumOf { it?.amount ?: 0 })
         // add or replace existing vault
         playerData.vaults.find { it.id == vault }?.let { playerData.vaults.remove(it) }
         playerData.vaults.add(vaultData)

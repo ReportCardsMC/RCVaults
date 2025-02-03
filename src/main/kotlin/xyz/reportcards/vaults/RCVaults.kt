@@ -2,6 +2,7 @@ package xyz.reportcards.vaults
 
 import co.aikar.commands.PaperCommandManager
 import org.bukkit.Bukkit
+import org.bukkit.conversations.ConversationFactory
 import org.bukkit.plugin.ServicePriority
 import org.bukkit.plugin.java.JavaPlugin
 import xyz.reportcards.vaults.commands.VaultCommand
@@ -25,9 +26,11 @@ class RCVaults : JavaPlugin() {
     }
 
     private lateinit var commandManager: PaperCommandManager
+    lateinit var conversationFactory: ConversationFactory
 
     override fun onEnable() {
         commandManager = PaperCommandManager(this)
+        conversationFactory = ConversationFactory(this)
         // Plugin startup logic
         commandManager.registerCommand(VaultTestCommand())
         commandManager.registerCommand(VaultCommand())

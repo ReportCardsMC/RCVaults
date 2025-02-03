@@ -49,9 +49,9 @@ class CompressedFileDatastore<T: Any>(
         val compressedBytes = CompressionUtils.compress(jsonBytes)
         file.writeBytes(compressedBytes)
 
-        println("Wrote ${file.name}: ${file.length()}")
-        println("Compressed size: ${file.length().toDouble() / 1024 / 1024} MB")
-        println("Original Content: $json")
+        //println("Wrote ${file.name}: ${file.length()}")
+        //println("Compressed size: ${file.length().toDouble() / 1024 / 1024} MB")
+        //println("Original Content: $json")
         return true
     }
 

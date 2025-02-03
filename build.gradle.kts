@@ -10,6 +10,7 @@ version = "0.1"
 repositories {
     mavenCentral()
     maven("https://repo.aikar.co/content/groups/aikar/")
+    maven("https://jitpack.io")
     maven("https://repo.papermc.io/repository/maven-public/") {
         name = "papermc-repo"
     }
@@ -25,8 +26,15 @@ repositories {
 dependencies {
     compileOnly("io.papermc.paper:paper-api:1.20.6-R0.1-SNAPSHOT")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+
+    // NBT library
     compileOnly("de.tr7zw:item-nbt-api-plugin:2.14.1")
+
+    // Command manager
     implementation("co.aikar:acf-paper:0.5.1-SNAPSHOT")
+
+    // Gui library
+    implementation ("com.github.stefvanschie.inventoryframework:IF:0.10.19")
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {

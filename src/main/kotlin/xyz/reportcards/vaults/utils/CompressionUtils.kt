@@ -31,32 +31,32 @@ object CompressionUtils {
         val msForData = measureTimeMillis {
             data = createTestData(1500 * 1024 * 1024)
         }
-        println("Data creation took $msForData ms")
+        //println("Data creation took $msForData ms")
 
         var compressed: ByteArray
         val compressMs = measureTimeMillis {
             compressed = compress(data)
         }
-        println("Compression took $compressMs ms")
+        //println("Compression took $compressMs ms")
 
         // Show compression ratio
         val mbCompressed = compressed.size.toDouble() / (1024 * 1024)
         val mbOriginal = data.size.toDouble() / (1024 * 1024)
-        println("Compressed %.2f MB to %.2f MB".format(mbOriginal, mbCompressed))
+        //println("Compressed %.2f MB to %.2f MB".format(mbOriginal, mbCompressed))
         val ratio = mbCompressed / mbOriginal
-        println("Compression ratio: %.2f".format(ratio))
+        //println("Compression ratio: %.2f".format(ratio))
 
         val decompressed: ByteArray
         val decompressMs = measureTimeMillis {
             decompressed = decompress(compressed)
         }
-        println("Decompression took $decompressMs ms")
+        //println("Decompression took $decompressMs ms")
 
         // Verify the decompressed data matches the original
         if (data.contentEquals(decompressed)) {
-            println("Decompression successful - data matches original")
+            //println("Decompression successful - data matches original")
         } else {
-            println("ERROR: Decompressed data does not match original!")
+            //println("ERROR: Decompressed data does not match original!")
         }
     }
 
