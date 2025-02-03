@@ -26,7 +26,7 @@ class ConversationUtils {
 
         override fun acceptValidatedInput(context: ConversationContext, input: String): Prompt? {
             if (input.equals("cancel", true)) {
-                player.sendMessage("<red>Cancelled changing vault name")
+                player.sendMessage(!"<red>Cancelled changing vault name")
                 return Prompt.END_OF_CONVERSATION
             }
             val newVault = VaultData(vault.id, input, vault.itemCount)
